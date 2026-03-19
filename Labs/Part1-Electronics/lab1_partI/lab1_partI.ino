@@ -10,7 +10,7 @@ static constexpr int numAnalog = 1;
 
 static constexpr int analogIns[numAnalog] = {0}; // analog 0
 static constexpr int analogLeds[numAnalog] = {6};
-static constexpr int analogOuts[numAnalog] = {13};
+static constexpr int analogOuts[numAnalog] = {11};
 
 static constexpr int LOOP_TIME = 400; // how long the main processor waits between loops
 unsigned long lastLoopTime = 0;
@@ -128,7 +128,7 @@ void loop()
 {
     
     // set speed to potentiometer reading
-    mystep.setStepInterval(map(analogRead(0), 0, 1024, 1000, 100));
+    mystep.setStepInterval(map(analogRead(0), 0, 1024, 100, 5));
     mystep.autostep();
     
     // todo: create object for buttons to encapsulate this rising edge detection
@@ -138,7 +138,7 @@ void loop()
     if (!zeroPressed && readButton(0))
     {
         zeroPressed = true;
-        mystep.changeTargetSteps(5);// say 5 steps is 90 degrees
+        mystep.changeTargetSteps(2048/4);//  2048 is one rotation
     }
 
     static bool onePressed = false;
@@ -147,7 +147,7 @@ void loop()
     if (!onePressed && readButton(1))
     {
         onePressed = true;
-        mystep.changeTargetSteps(-5);// say 5 steps is 90 degrees
+        mystep.changeTargetSteps(-2048/4);//  2048 is one rotation
     }
     
     

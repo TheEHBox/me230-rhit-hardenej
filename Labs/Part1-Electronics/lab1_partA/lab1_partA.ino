@@ -10,7 +10,7 @@ static constexpr int digitalOuts[numDigital] = {12, 13};
 static constexpr int numAnalog = 1;
 static constexpr int analogIns[numAnalog] = {0}; //analog 0
 static constexpr int analogLeds[numAnalog] = {6};
-static constexpr int analogOuts[numAnalog] = {13};
+static constexpr int analogOuts[numAnalog] = {11};
 
 
 void setup()
