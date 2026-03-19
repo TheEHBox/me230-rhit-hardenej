@@ -1,6 +1,9 @@
 // C++ code
 //
 
+#include <Servo.h>
+
+
 static constexpr int numDigital = 2;
 static constexpr int digitalIns[numDigital] = {2, 3};
 static constexpr int digitalLeds[numDigital] = {4, 5};
@@ -100,12 +103,15 @@ int readButton(int index)
 
 // steps per rotation for real stepper: 2048
 MyStepper mystep{7, 8, 9, 10};
+Servo myservo{};
 
 void setup()
 {
 
     Serial.begin(9800);
     pinMode(LED_BUILTIN, OUTPUT);
+    
+    myservo.attach(30);
 
     for (int i = 0; i < numDigital; i++)
     {
@@ -169,4 +175,10 @@ void loop()
         analogWrite(analogLeds[i], read);
         analogWrite(analogOuts[i], read);
     }
+    
+    //servo movement
+    if(readButton(0)) myservo.write(0);
+    else if(readButton(1)) myservo.write(180);
+    else myservo.write(map(analogRead(analogIns[0]), 0, 1024, 0, 180));
+    
 }
