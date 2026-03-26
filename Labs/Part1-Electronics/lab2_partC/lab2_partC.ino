@@ -10,6 +10,10 @@ void setup() {
   pinMode(8, OUTPUT); // C
   pinMode(7, OUTPUT); // B
   pinMode(6, OUTPUT); // A
+
+  
+  pinMode(3, OUTPUT); // right motor
+  pinMode(5, OUTPUT); // left motor
   
   pinMode(2, INPUT_PULLUP);
   pinMode(4, INPUT_PULLUP);
@@ -44,9 +48,20 @@ void loop() {
 
   BUTTON_POSEDGE(2, if(speedCounter<5) speedCounter++)
   BUTTON_POSEDGE(4, speedCounter=0)
+
+  
   
   
   set7SegmentValue(speedCounter);
+  //set7SegmentValue(analogRead(0) / 100);
+  bool whiteRight = analogRead(0)<=650;
+  bool whiteLeft = analogRead(1)<=650;
+
+  digitalWrite(13, whiteRight);
+
+  analogWrite(3, whiteRight?speedCounter*50:0);
+  analogWrite(5, whiteLeft?speedCounter*50:0);
+
 
   delay(10);  // Do nothing.
   
